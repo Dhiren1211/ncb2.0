@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>NCB-Home</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- Meta -->
+    <meta name="description" content="NCB- Nepali Communituy in Busan">
+    <link rel="stylesheet" href="./frontend/css/styles.css">
+
+    <!-- <link rel="stylesheet" href="./frontend/css/slider.css"> -->
+    <style>
+        /* Additional styles for the read more functionality */
+        .message-container {
+            position: relative;
+            max-height: 200px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .message-container.expanded {
+            max-height: 1000px;
+        }
+
+        .read-more-btn {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background: #c1121f;
+        }
+
+        .fade-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(transparent, #f8f9fa);
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .message-container.expanded .fade-overlay {
+            opacity: 0;
+        }
+
+        /* Executive Committee Styles */
+        .executive-committee-container {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .executive-committee-container.active {
+            display: block;
+        }
+
+        .back-to-home {
+            display: block;
+            margin: 2rem auto;
+            padding: 10px 20px;
+            background: #0a348f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .back-to-home:hover {
+            background: #0045b5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="topbar">
+            <div class="container">
+                <div class="branding">
+                    <div class="logo">
+                        <img src="./assets/Images/NCB_logo.png" alt="NCB Logo" style="width: 120px;">
+                    </div>
+                    <div class="branding-text">
+                        <div class="org-title">Nepalese Community In Busan</div>
+                        <div class="org-sub">NCB</div>
+                    </div>
+                </div>
+
+                <div class="top-actions">
+                    <div class="search-wrap">
+                        <input type="search" placeholder="Search..." aria-label="Search" id="search-input" />
+                        <button id="search-btn">Search</button>
+                    </div>
+                    <div class="flags">
+                        <img src="./assets/Images/np_flag.gif" alt="Nepal" srcset="" style="width: 50px;">
+                    </div>
+                    <div class="socials">
+                        <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAV -->
+      <nav class="main-nav">
+  <div class="container nav-inner">
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">Home</a></li>
+
+      <li class="has-sub">
+        <a href="#">About Us</a>
+        <ul class="dropdown">
+          <li><a href="#">History</a></li>
+          <li><a href="#">Mission & Vision</a></li>
+          <li><a href="./frontend/html/executive-committee.html">Executive Committee</a></li>
+          <li><a href="./frontend/html/founding_members.html">Founding Members</a></li>
+          <li><a href="./frontend/html/executive-committee.html">Advisory Board</a></li>
+          <li><a href="./frontend/html/executive-committee.html">Associate Committee</a></li>
+        </ul>
+      </li>
+
+      <li class="has-sub">
+        <a href="#">Media</a>
+        <ul class="dropdown">
+          <li><a href="#">Press Releases</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#Gallery">Gallery</a></li>
+        </ul>
+      </li>
+
+      <li class="has-sub">
+        <a href="#">Resources</a>
+        <ul class="dropdown">
+          <li><a href="#">Documents</a></li>
+          <li><a href="#">Publications</a></li>
+        </ul>
+      </li>
+
+      <li><a href="#events">Events</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="cta" href="#">NCB Portal</a></li>
+    </ul>
+
+    <button class="mobile-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+    </header>
+    <!-- NOTICE BAR -->
+    <div class="notice-bar">
+        <div class="container notice-inner">
+            <span class="notice-label">सूचना</span>
+            <div class="notice-scroll" aria-live="polite">
+                <p class="scroll-text">
+                    सूचनीय: २०८२ भदौ ३० गते हुने महत्त्वपूर्ण बैठकको समय परिवर्तन गरिएको छ — कृपया सम्बन्धित सबैलाई
+                    सूचित गरियोस्। | Notice: Annual general meeting dates updated. Check calendar for details.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MAIN -->
+    <main class="container main-grid">
+        <!-- MAIN GRID CONTENT -->
+        <div class="main_top_container">
+            <section class="hero-banner">
+                <div class="hero-text">
+                    <h1>Together in Busan, Stronger as NCB</h1>
+                    <p>Nepalese Community in Busan — support, culture, and opportunities.</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary join-btn">Join NCB</button>
+                        <button class="btn-secondary event-btn">Upcoming Events</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Access Cards -->
+            <div class="quick-cards">
+                <div class="card">
+                    <i class="fa-regular fa-calendar"></i>
+                    <div class="card_description">
+                        <h4 class="card_title">Events & Festivals</h4>
+                        <p class="card_desc">Celebrate Dashain, Tihar, Teej and more.</p>
+                    </div>
+
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <div class="card_description">
+                        <h4 class="card_title">Student Help</h4>
+                        <p class="card_desc">Housing tips, USA Line, part-time work</p>
+                    </div>
+
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <div class="card_description">
+                        <h4 class="card_title">Community Care</h4>
+                        <p class="card_desc">Blood drives, legal clinics, emergency</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Upcoming Events (populated from backend) -->
+        <section class="upcoming-events">
+            <h2>Upcoming Events</h2>
+            <div class="events-list" aria-live="polite">
+                <p class="events-loading">Loading upcoming events…</p>
+            </div>
+        </section>
+
+        <!-- News & Notices -->
+        <section id="news" class="news-notices">
+            <h2>News & Notices</h2>
+            <div class="news-list">
+                <div class="news-item">
+                    <p class="date">Apr 25, 2024</p>
+                    <h4>Teej Festivalue Announced</h4>
+                    <a href="#">Read More</a>
+                </div>
+                <div class="news-item">
+                    <p class="date">Apr 15, 2024</p>
+                    <h4>Membership Renewal Deadline</h4>
+                    <a href="#">Read More</a>
+                </div>
+                <div class="news-item">
+                    <p class="date">Apr 3, 2024</p>
+                    <h4>Upcoming Dashain Event</h4>
+                    <a href="#">Read More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs -->
+        <section class="programs">
+            <h2>Programs</h2>
+            <div class="program-cards">
+                <div class="program-card"><i class="fa-solid fa-flag"></i><span>Cultural</span></div>
+                <div class="program-card"><i class="fa-solid fa-user"></i><span>Youth</span></div>
+                <div class="program-card"><i class="fa-solid fa-female"></i><span>Women</span></div>
+                <div class="program-card"><i class="fa-solid fa-shield"></i><span>Welfare</span></div>
+                <div class="program-card"><i class="fa-solid fa-basketball"></i><span>Sports</span></div>
+                <div class="program-card"><i class="fa-solid fa-graduation-cap"></i><span>Education</span></div>
+            </div>
+        </section>
+        <section id="images-section">
+            <div class="left-gallery">
+                <div class="slider-container">
+                    <div class="slides"></div>
+
+                    <!-- Navigation arrows -->
+                    <button class="nav-arrow prev">❮</button>
+                    <button class="nav-arrow next">❯</button>
+
+                    <!-- Dots -->
+                    <div class="dots"></div>
+
+                    <!-- Play/Pause -->
+                    <button class="play-pause">⏸</button>
+                </div>
+            </div>
+
+            <div class="right-president">
+                <h2>President</h2>
+                <div class="president-card">
+                    <img src="./assets/uploads/president.jpg" alt="President">
+                    <div class="president-info">
+                        <h3>Ashok Acharya</h3>
+                        <p>President, Nepalese Community in Busan (NCB)</p>
+                    </div>
+                </div>
+
+                <div class="message-container">
+                    <div class="message">
+                        <p>
+                            Namaste and warm greetings to all! On behalf of the Nepalese Community in Busan (NCB),
+                            I extend my heartfelt welcome to every Nepali brother, sister, and friend living in this
+                            beautiful city of Busan and across South Korea. Our community was established with a shared
+                            vision — to bring together Nepalese living in Busan under one roof of unity, mutual support,
+                            and cultural pride.
+                        </p>
+                        <p>
+                            Over the years, NCB has grown into a vibrant family where we celebrate our festivals,
+                            preserve
+                            our traditions, and support one another in times of need. Whether it is organizing cultural
+                            events,
+                            assisting newcomers, or collaborating with local institutions, our goal remains the same: to
+                            promote
+                            solidarity, cultural understanding, and the positive image of Nepal in Korea.
+                        </p>
+                        <p>
+                            Busan is not only a city of opportunities but also a place that embraces diversity. Through
+                            our
+                            collective effort, we hope to strengthen the bridge between Nepal and Korea, showcasing the
+                            spirit,
+                            resilience, and warmth of the Nepalese people.
+                        </p>
+                        <p>
+                            Let's continue to move forward with unity, respect, and pride in who we are.
+                        </p>
+                    </div>
+                    <div class="fade-overlay"></div>
+                </div>
+                <button class="read-more-btn">Read More</button>
+            </div>
+        </section>
+        <section id="Gallery">
+            <h1>NCB Gallery</h1>
+            <div class="images-container">
+
+            </div>
+        </section>
+        <!-- Join NCB CTA -->
+        <section class="join-section">
+            <div class="join-content">
+                <h2>Join Our Community</h2>
+                <p>Become part of the Nepalese community in Busan and access exclusive benefits, events, and support
+                    networks.</p>
+                <div class="join-benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Priority event access</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-users"></i>
+                        <span>Community networking</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-hands-helping"></i>
+                        <span>Support services</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Student resources</span>
+                    </div>
+                </div>
+                <button class="btn-primary join-btn">Join NCB Today</button>
+                <p class="join-note">Membership helps us organize cultural events, provide emergency support, and
+                    maintain our community center.</p>
+            </div>
+        </section>
+
+
+    </main>
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="branding">
+                    <!-- <div class="logo_small " style="background-color: rgb(237, 237, 237); border-radius: 6px;">
+                        <img src="./assets/Images/NCB_logo.png" alt="NCB Logo" style="width: 50px;">
+                    </div> -->
+                    <div class="branding-text">
+                        <div class="org-title">NCB </div>
+                    </div>
+                </div>
+                <p>Nepali Community in Busan(NCB). Working to connect Nepali diaspora worldwide.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">About NCB</a></li>
+                    <li><a href="#">Membership</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Publications</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <address>
+                    NCB Central Office<br>
+                    Kathmandu, Nepal<br>
+                    Email: info@example.org<br>
+                    Phone: +977-1-xxxxxxx
+                </address>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <small>© <span id="year"></span> Nepali Community in Busan. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+    <script src="./frontend/js/script.js">
+
+    </script>
+</body>
+
+</html>

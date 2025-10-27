@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Not Found</title>
+  <style>
+    /* Reset & Fonts */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0076d785, #00a6e85b);
+      color: #0b4cd7;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated background circles */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 10s infinite ease-in-out;
+    }
+
+    .circle:nth-child(1) {
+      width: 150px; height: 150px;
+      top: 10%; left: 20%;
+      animation-delay: 0s;
+    }
+    .circle:nth-child(2) {
+      width: 100px; height: 100px;
+      bottom: 15%; right: 25%;
+      animation-delay: 2s;
+    }
+    .circle:nth-child(3) {
+      width: 80px; height: 80px;
+      top: 60%; left: 10%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-25px); }
+    }
+
+    /* Logo */
+    .logo {
+      width: 180px;
+      margin-bottom: 25px;
+      animation: fadeInDown 1s ease;
+    }
+
+    /* 404 Animation */
+    h1 {
+      font-size: 7rem;
+      font-weight: 800;
+      color: #0a33ff;
+      text-shadow: 0 0 20px rgba(17, 93, 192, 0.4);
+      letter-spacing: 5px;
+      animation: glowPulse 2s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+      to { text-shadow: 0 0 25px rgba(255,255,255,0.9); }
+    }
+
+    /* Subheading */
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    /* Message */
+    p {
+      font-size: 1rem;
+      color: #001cf4;
+      margin-bottom: 30px;
+      max-width: 450px;
+      animation: fadeInUp 1.4s ease;
+    }
+
+    /* Button */
+    a {
+      display: inline-block;
+      background: #0144ef92;
+      color: #ffffff;
+      padding: 12px 28px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: 0.4s;
+      box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+      animation: fadeInUp 1.6s ease;
+    }
+
+    a:hover {
+      transform: translateY(-4px);
+      background: #2300ebe3;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 { font-size: 4.5rem; }
+      h2 { font-size: 1.4rem; }
+      p { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating circles background -->
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+  <!-- Organization Logo -->
+  <img src="/assests/Images/NCB_logo.png" alt="NCB Logo" class="logo">
+
+  <!-- 404 Content -->
+  <h1>404</h1>
+  <h2>Oops! Page Not Found</h2>
+  <p>The page you’re looking for doesn’t exist or has been moved. Let’s get you back on track.</p>
+  <a href="index.html">Return Home</a>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete API Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Complete API Test for NCB</h1>
+    
+    <div class="test-section">
+        <h2>1. File Existence Test</h2>
+        <div id="file-test"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. PHP Test</h2>
+        <div id="php-test"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. API Endpoints Test</h2>
+        <div id="api-test"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Current URL Info</h2>
+        <div id="url-info"></div>
+    </div>
+
+    <script>
+        const fileTest = document.getElementById('file-test');
+        const phpTest = document.getElementById('php-test');
+        const apiTest = document.getElementById('api-test');
+        const urlInfo = document.getElementById('url-info');
+        
+        // Show current URL info
+        urlInfo.innerHTML = `
+            <p><strong>Current URL:</strong> ${window.location.href}</p>
+            <p><strong>Origin:</strong> ${window.location.origin}</p>
+            <p><strong>Pathname:</strong> ${window.location.pathname}</p>
+        `;
+        
+        // Test 1: File existence
+        async function testFile() {
+            const paths = [
+                './backend/api.php',
+                './api.php',
+                '/NCB/backend/api.php',
+                '/NCB/api.php',
+                'backend/api.php',
+                'api.php',
+                'http://localhost/NCB/Backend/api.php'
+            ];
+            
+            for (const path of paths) {
+                try {
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        fileTest.innerHTML += `<p class="success">✓ Found: ${path} (${response.status})</p>`;
+                    return path;
+                    break;
+                    } else {
+                        fileTest.innerHTML += `<p class="error">✗ Not found: ${path} (${response.status})</p>`;
+                    }
+                } catch (error) {
+                    fileTest.innerHTML += `<p class="error">✗ Error: ${path} - ${error.message}</p>`;
+                }
+            }
+        }
+        
+        // Test 2: PHP functionality
+        async function testPHP() {
+            try {
+                const response = await fetch('./backend/test.php');
+                if (response.ok) {
+                    const data = await response.json();
+                    phpTest.innerHTML = `
+                        <p class="success">✓ PHP is working!</p>
+                        <p><strong>PHP Version:</strong> ${data.server_info.php_version}</p>
+                        <p><strong>Server:</strong> ${data.server_info.server}</p>
+                    `;
+                } else {
+                    phpTest.innerHTML = `<p class="error">✗ PHP test failed: ${response.status}</p>`;
+                }
+            } catch (error) {
+                phpTest.innerHTML = `<p class="error">✗ PHP error: ${error.message}</p>`;
+            }
+        }
+        
+        // Test 3: API endpoints
+        async function testAPI() {
+            const endpoints = ['gallery', 'news', 'event'];
+            
+            for (const endpoint of endpoints) {
+                try {
+                    const response = await fetch('./backend/api.php?action=' + endpoint);
+                    if (response.ok) {
+                        const data = await response.json();
+                        apiTest.innerHTML += `<p class="success">✓ ${endpoint}: ${data.status}</p>`;
+                    } else {
+                        apiTest.innerHTML += `<p class="error">✗ ${endpoint}: ${response.status}</p>`;
+                    }
+                } catch (error) {
+                    apiTest.innerHTML += `<p class="error">✗ ${endpoint}: ${error.message}</p>`;
+                }
+            }
+        }
+        
+        // Run all tests
+        testFile();
+        testPHP();
+        testAPI();
+    </script>
+</body>
+</html>
