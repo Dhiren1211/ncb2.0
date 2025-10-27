@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Control Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <!-- Left Panel -->
+        <div class="login-left">
+            <div class="login-left-content">
+                <div class="mb-4">
+                    <i class="fas fa-shield-alt" style="font-size: 4rem;"></i>
+                </div>
+                <h2>Welcome Back!</h2>
+                <p>Sign in to access your admin dashboard</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Manage Notices & Events</li>
+                    <li><i class="fas fa-check-circle"></i> Admin User Management</li>
+                    <li><i class="fas fa-check-circle"></i> Payment Validation</li>
+                    <li><i class="fas fa-check-circle"></i> Gallery & Banner Management</li>
+                    <li><i class="fas fa-check-circle"></i> Membership Applications</li>
+                    <li><i class="fas fa-check-circle"></i> Real-time Analytics</li>
+                </ul>
+                
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="login-right">
+            <div class="login-header">
+                <h3>Admin Login</h3>
+                <p>Enter your credentials to continue</p>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span id="errorText">Invalid email or password</span>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle me-2"></i>
+                <span>Login successful! Redirecting...</span>
+            </div>
+
+            <!-- Login Form -->
+            <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <div class="input-group">
+                        <input type="email" class="form-control" id="email" placeholder="admin@admin.com" required value="admin@admin.com">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password" required value="admin123">
+                        <i class="fas fa-lock"></i>
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="passwordIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe" checked>
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-login" id="loginBtn">
+                    <span class="btn-text">Sign In</span>
+                    <div class="spinner"></div>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>© 2024 NCB. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/index.js"></script>
+</body>
+</html>

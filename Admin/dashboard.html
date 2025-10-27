@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Control Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-shield-alt"></i> Admin Panel</h3>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="#" class="menu-item active" data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="menu-item" data-page="notices">
+                <i class="fas fa-bullhorn"></i>
+                <span>Notices</span>
+            </a>
+            <a href="#" class="menu-item" data-page="events">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Events</span>
+            </a>
+            <a href="#" class="menu-item" data-page="gallery">
+                <i class="fas fa-images"></i>
+                <span>Gallery</span>
+            </a>
+            <a href="#" class="menu-item" data-page="membership-applications">
+                <i class="fas fa-user-plus"></i>
+                <span>Membership Applications</span>
+            </a>
+            <a href="#" class="menu-item" data-page="banner">
+                <i class="fas fa-image"></i>
+                <span>Banner Management</span>
+            </a>
+            <a href="#" class="menu-item" data-page="activity-logs">
+                <i class="fas fa-history"></i>
+                <span>Activity Logs</span>
+            </a>
+            <a href="#" class="menu-item" data-page="admins">
+                <i class="fas fa-users-cog"></i>
+                <span>Admins</span>
+            </a>
+            <a href="#" class="menu-item" data-page="payments">
+                <i class="fas fa-credit-card"></i>
+                <span>Payment Validation</span>
+            </a>
+            <a href="#" class="menu-item" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="page-title" id="pageTitle">Dashboard</h1>
+            <div class="admin-info">
+                <span id="adminWelcome">Welcome, Admin</span>
+                <div class="admin-avatar">A</div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Dashboard Section -->
+            <section class="page-section active" id="dashboard">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <div class="stat-value" id="totalNotices">0</div>
+                            <div class="stat-label">Total Notices</div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #fce7f3; color: #ec4899;">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-value" id="totalEvents">0</div>
+                            <div class="stat-label">Upcoming Events</div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #d1fae5; color: #10b981;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-value" id="totalMembers">0</div>
+                            <div class="stat-label">Total Members</div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #fed7aa; color: #f59e0b;">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-value" id="pendingApplications">0</div>
+                            <div class="stat-label">Pending Applications</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Recent Notices</h5>
+                            </div>
+                            <div class="card-body" id="recentNotices"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Upcoming Events</h5>
+                            </div>
+                            <div class="card-body" id="upcomingEvents"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Recent Activity</h5>
+                            </div>
+                            <div class="card-body" id="recentActivity"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Gallery Preview</h5>
+                            </div>
+                            <div class="card-body" id="galleryPreview"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notices Section -->
+            <section class="page-section" id="notices">
+                <div class="section-header">
+                    <h4 class="section-title">Manage Notices</h4>
+                    <button class="btn-primary-custom" onclick="openNoticeModal()">
+                        <i class="fas fa-plus"></i>
+                        <span>Add New Notice</span>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Content</th>
+                                <th>Date</th>
+                                <th>Priority</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="noticesTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Events Section -->
+            <section class="page-section" id="events">
+                <div class="section-header">
+                    <h4 class="section-title">Manage Events</h4>
+                    <button class="btn-primary-custom" onclick="openEventModal()">
+                        <i class="fas fa-plus"></i>
+                        <span>Add New Event</span>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventsTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Gallery Section -->
+            <section class="page-section" id="gallery">
+                <div class="section-header">
+                    <h4 class="section-title">Image Gallery</h4>
+                    <button class="btn-primary-custom" onclick="openGalleryModal()">
+                        <i class="fas fa-plus"></i>
+                        <span>Upload Image</span>
+                    </button>
+                </div>
+                <div class="row" id="galleryGrid">
+                    <!-- Gallery images will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Membership Applications Section -->
+            <section class="page-section" id="membership-applications">
+                <div class="section-header">
+                    <h4 class="section-title">Membership Applications</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Membership Type</th>
+                                <th>Applied Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicationsTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Banner Management Section -->
+            <section class="page-section" id="banner">
+                <div class="section-header">
+                    <h4 class="section-title">Banner Management</h4>
+                    <button class="btn-primary-custom" onclick="openBannerModal()">
+                        <i class="fas fa-plus"></i>
+                        <span>Upload New Banner</span>
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Current Banner</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="currentBanner" class="text-center">
+                                    <!-- Current banner will be displayed here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h5>Banner History</h5>
+                        <div class="table-responsive">
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Banner Image</th>
+                                        <th>Title</th>
+                                        <th>Uploaded Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bannersTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Activity Logs Section -->
+            <section class="page-section" id="activity-logs">
+                <div class="section-header">
+                    <h4 class="section-title">Activity Logs</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Action</th>
+                                <th>Timestamp</th>
+                                <th>IP Address</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityLogsTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Admins Section -->
+            <section class="page-section" id="admins">
+                <div class="section-header">
+                    <h4 class="section-title">Manage Admins</h4>
+                    <button class="btn-primary-custom" onclick="openAdminModal()">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Create New Admin</span>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminsTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Payments Section -->
+            <section class="page-section" id="payments">
+                <h4 class="section-title mb-4">Payment Validation</h4>
+                <div id="paymentsList"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notice Modal -->
+    <div class="modal fade" id="noticeModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Notice</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="noticeForm">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-control" id="noticeTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Content</label>
+                            <textarea class="form-control" id="noticeContent" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Priority</label>
+                            <select class="form-select" id="noticePriority">
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-primary-custom" onclick="saveNotice()">Save Notice</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Modal -->
+    <div class="modal fade" id="eventModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="eventForm">
+                        <div class="mb-3">
+                            <label class="form-label">Event Name</label>
+                            <input type="text" class="form-control" id="eventName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control" id="eventDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Time</label>
+                            <input type="time" class="form-control" id="eventTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-control" id="eventLocation" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-primary-custom" onclick="saveEvent()">Save Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div class="modal fade" id="galleryModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Image to Gallery</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="galleryForm">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-control" id="galleryTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="galleryDescription" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <input type="file" class="form-control" id="galleryImage" accept="image/*" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Related Event (Optional)</label>
+                            <select class="form-select" id="galleryEvent">
+                                <option value="">Select Event</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-primary-custom" onclick="saveGalleryImage()">Upload Image</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner Modal -->
+    <div class="modal fade" id="bannerModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload New Banner</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="bannerForm">
+                        <div class="mb-3">
+                            <label class="form-label">Banner Title</label>
+                            <input type="text" class="form-control" id="bannerTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Banner Image</label>
+                            <input type="file" class="form-control" id="bannerImage" accept="image/*" required>
+                            <div class="form-text">Recommended size: 1920x600 pixels</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="bannerStatus">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-primary-custom" onclick="saveBanner()">Upload Banner</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Detail Modal -->
+    <div class="modal fade" id="applicationModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Membership Application Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="applicationDetails"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn-success-custom" onclick="approveApplication()">
+                        <i class="fas fa-check me-2"></i>Approve
+                    </button>
+                    <button type="button" class="btn-danger-custom" onclick="rejectApplication()">
+                        <i class="fas fa-times me-2"></i>Reject
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Modal -->
+    <div class="modal fade" id="adminModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Admin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adminForm">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="adminName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="adminEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="adminPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Role</label>
+                            <select class="form-select" id="adminRole">
+                                <option value="Super Admin">Super Admin</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Moderator">Moderator</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-primary-custom" onclick="saveAdmin()">Create Admin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+</html>

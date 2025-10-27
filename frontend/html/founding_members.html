@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>ExecutiveCommittee</title>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="topbar">
+            <div class="container">
+                <div class="branding">
+                    <div class="logo">
+                        <img src="../../assets/Images/NCB_logo.png" alt="NCB Logo" style="width: 120px;">
+                    </div>
+                    <div class="branding-text">
+                        <div class="org-title">Nepalese Community In Busan</div>
+                        <div class="org-sub">NCB</div>
+                    </div>
+                </div>
+
+                <div class="top-actions">
+                    <div class="search-wrap">
+                        <input type="search" placeholder="Search..." aria-label="Search" id="search-input" />
+                        <button id="search-btn">Search</button>
+                    </div>
+                    <div class="flags">
+                        <img src="../../assets/Images/np_flag.gif" alt="Nepal" srcset="" style="width: 50px;">
+                    </div>
+                    <div class="socials">
+                        <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAV -->
+        <nav class="main-nav">
+            <div class="container nav-inner">
+                <ul class="nav-menu">
+                    <li><a href="../../index.html">Home</a></li>
+
+                    <li class="has-sub">
+                        <a href="#">About Us</a>
+                        <ul class="dropdown">
+                            <li><a href="#">History</a></li>
+                            <li><a href="#">Mission & Vision</a></li>
+                            <li><a href="founding_members.html">Founding Members</a></li>
+                            <li><a href="executive-committee.html">Advisory Board</a></li>
+                            <li><a href="executive-committee.html">Associate Committee</a></li>
+                            <li><a href="executive-committee.html" class="nav-link">Executive
+                                    Committee</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="has-sub">
+                        <a href="#">Media</a>
+                        <ul class="dropdown">
+                            <li><a href="../../index.html">Press Releases</a></li>
+                            <li><a href="../../index.html#news">News</a></li>
+                            <li><a href="../../index.html#gallery">Gallery</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has-sub">
+                        <a href="#">Resources</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Documents</a></li>
+                            <li><a href="#">Publications</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a class="cta" href="#">NCB Portal</a></li>
+                </ul>
+
+                <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+
+    </header>
+
+    <main class="container">
+        <section class="committee-intro">
+            <p>Our Executive Committee consists of dedicated individuals who volunteer their time and expertise
+                to guide
+                our community. They work tirelessly to ensure we achieve our mission and serve our members
+                effectively.
+            </p>
+        </section>
+
+        <section class="committee-members">
+            <h2 class="section-title">Founding Members</h2>
+            <div id="committee-grid" class="committee-grid">
+                <!-- Member cards will be dynamically inserted here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Nepalese Community in Busan</h3>
+                <p>Connecting Nepalese people in Busan, South Korea</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-kakao-talk"></i></a>
+                </div>
+                <p>&copy; 2023 Nepalese Community in Busan. All rights reserved.</p>
+            </div>
+        </div>
+    </footer> -->
+
+    <!-- Member Card Template -->
+    <template id="member-template">
+        <div class="member-card">
+            <div class="member-image">
+                <img src="" alt="" class="member-photo">
+            </div>
+            <div class="member-info">
+                <h3 class="member-name"></h3>
+                <p class="member-position"></p>
+                <div class="member-contact">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span class="member-email"></span>
+                    </div>
+                    <div class="contact-item phone-item">
+                        <i class="fas fa-phone"></i>
+                        <span class="member-phone"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+        const committeeMembers = [
+            {
+                id: 1,
+                name: "Mr. Ashok Acharya",
+                // position: "President",
+                email: "acharyaashok459@gmail.com",
+                phone: "Null",
+                image: "../../assets/Executives/President.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+            {
+                id: 2,
+                name: "Ms. Seema Shrestha",
+                // position: "Secretary",
+                email: "crthasima@gmail.com",
+                phone: "Null",
+                image: "../../assets/Executives/Secretary.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+            {
+                id: 3,
+                name: "Ms. Swekshya Thapa",
+                // position: "Treasurer",
+                email: "crthasima@gmail.com",
+                phone: "Null",
+                image: "../../assets/Executives/Treasurer.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+            {
+                id: 4,
+                name: "Mr. Deenesh Thapa",
+                // position: "Vice-President",
+                email: "Thapadeenesh7906@gmail.com",
+                phone: "Null",
+                image: "../../assets/Executives/vice_President.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+            {
+                id: 5,
+                name: "Mr. Deepesh Surjey Shahi",
+                // position: "Media & News",
+                email: "Deepeshshahi57@gmail.com",
+                phone: "010-5813-3111",
+                image: "../../assets/Executives/Media&News.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+            {
+                id: 6,
+                name: "Ms. Ena Gurung",
+                // position: "Graphic & Poster Designer",
+                email: "ena.grg22@gmail.com",
+                phone: "010-8369-2654",
+                image: "../../assets/Executives/Graphic&PosterDesigner.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+             {
+                id: 7,
+                name: "Mr. Nim Tshering Sherpa",
+                // position: "Executive Member",
+                email: "nimtshering21@gmail.com",
+                phone: "010-5780-5637",
+                image: "../../assets/Executives/MrNim.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+            {
+                id: 8,
+                name: "Ms. Soniya Limbu",
+                // position: "Executive Member",
+                email: "isoniya400@gmail.com",
+                phone: "010-3405-9011",
+                image: "../../assets/Executives/MsSoniya.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+            {
+                id: 9,
+                name: "Mr. Kewal Yonzan",
+                // position: "Executive Member",
+                email: "acdkorea@gmail.com",
+                phone: "010-4489-9710",
+                image: "../../assets/Executives/MrKewa.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+            {
+                id: 10,
+                name: "Ms. Dil Maya Gurung",
+                // position: "Executive Member",
+                email: "grg.dilu05@gmail.com",
+                phone: "010-5899-3887",
+                image: "../../assets/Executives/MsDilMaya.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+            {
+                id: 11,
+                name: "Ms. Roshni Kuikel",
+                // position: "Executive Member",
+                email: "rroshni8020@gmail.com",
+                phone: "010-5651-9843",
+                image: "../../assets/Executives/MsRoshni.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+              {
+                id: 12,
+                name: "Mr. taman Khatri",
+                // position: "Executive Member",
+                email: "Null",
+                phone: "Null",
+                image: "../../assets/Executives/MrTaman.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+              {
+                id: 13,
+                name: "Mr. Anjesh Magar",
+                // position: "Executive Member",
+                email: "Null",
+                phone: "Null",
+                image: "../../assets/Executives/MrAnjesh.jpg", // Replace with actual image path
+                category: "leadership"
+            },
+              {
+                id: 14,
+                name: "Ms. Soni Rumba",
+                // position: "Executive Member",
+                email: "Null",
+                phone: "Null",
+                image: "../../assets/Executives/MsSoni.jpg", // Replace with actual image path
+                category: "leadership"
+            }
+        ];
+
+        // Executive members data with image URLs
+    
+
+        // Function to create member card from template
+        function createMemberCard(member) {
+            // Get the template
+            const template = document.getElementById('member-template');
+
+            // Clone the template content
+            const card = template.content.cloneNode(true);
+
+            // Fill in the data
+            const memberPhoto = card.querySelector('.member-photo');
+            if (member.image) {
+                memberPhoto.src = member.image;
+                memberPhoto.alt = `${member.name} - ${member.position}`;
+            } else {
+                // Hide the image if no URL is provided
+                memberPhoto.style.display = 'none';
+            }
+
+            card.querySelector('.member-name').textContent = member.name;
+            card.querySelector('.member-position').textContent = member.position;
+            card.querySelector('.member-email').textContent = member.email;
+
+            // Handle phone number display
+            const phoneItem = card.querySelector('.phone-item');
+            const memberPhone = card.querySelector('.member-phone');
+            if (member.phone) {
+                memberPhone.textContent = member.phone;
+            } else {
+                phoneItem.style.display = 'none';
+            }
+
+            return card;
+        }
+
+        // Function to render all committee members
+        function renderCommitteeMembers() {
+            const committeeGrid = document.getElementById('committee-grid'); 
+            // Clear existing content
+            committeeGrid.innerHTML = '';
+
+            // Add leadership members
+            committeeMembers.forEach(member => {
+                const card = createMemberCard(member);
+                committeeGrid.appendChild(card);
+            });
+
+            // Add executive members
+        }
+
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', renderCommitteeMembers);
+    </script>
+    <script src="/frontend/js/script.js"></script>
+</body>
+
+</html>
